@@ -90,9 +90,7 @@ public class Counter<T>
 	 */
 	public List<T> getMostFrequent(final int n)
 	{
-		ArrayList<Entry<T, Integer>> all = new ArrayList<Entry<T, Integer>>(items
-				.entrySet());
-		Collections.sort(all, BY_FREQ_DESC);
+		final List<Entry<T, Integer>> all = getAllByFrequency();
 		final int resultSize = Math.min(n, items.size());
 		final List<T> result = new ArrayList<T>(resultSize);
 		for (final Entry<T, Integer> e : all.subList(0, resultSize))
@@ -100,6 +98,14 @@ public class Counter<T>
 			result.add(e.getKey());
 		}
 		return Collections.unmodifiableList(result);
+	}
+
+	public List<Entry<T, Integer>> getAllByFrequency()
+	{
+		final List<Entry<T, Integer>> all = new ArrayList<Entry<T, Integer>>(items
+				.entrySet());
+		Collections.sort(all, BY_FREQ_DESC);
+		return Collections.unmodifiableList(all);
 	}
 
 	public Integer getCount(final T item)
