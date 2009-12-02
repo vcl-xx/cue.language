@@ -84,15 +84,15 @@ Gutenberg e-text edition of Arthur Conan Doyle's
 			
 ### Guessing script and language
     
-    final String arabic = fetchURL("http://ar.wikipedia.org/wiki/%D9%85%D8%A8%D8%A7%D8%B1%D9%83_%D8%A7%D9%84%D8%B5%D8%A8%D8%A7%D8%AD");
+    final String arabic = fetchURL("http://ar.wikipedia.org/wiki/مبارك_الصباح");
     System.out.println(BlockUtil.guessUnicodeBlock(arabic));
     System.out.println(StopWords.guess(arabic));
     
-    final String farsi = fetchURL("http://fa.wikipedia.org/wiki/%D9%85%D8%AD%D9%85%D8%AF_%D8%B2%DA%A9%D8%B1%DB%8C%D8%A7%DB%8C_%D8%B1%D8%A7%D8%B2%DB%8C");
+    final String farsi = fetchURL("http://fa.wikipedia.org/wiki/محمد_زکریای_رازی");
     System.out.println(BlockUtil.guessUnicodeBlock(farsi));
     System.out.println(StopWords.guess(farsi));
     
-    final String hindi = fetchURL("http://hi.wikipedia.org/wiki/%E0%A4%B5%E0%A4%BF%E0%A4%95%E0%A4%BF%E0%A4%AA%E0%A5%80%E0%A4%A1%E0%A4%BF%E0%A4%AF%E0%A4%BE:%E0%A4%A8%E0%A4%BF%E0%A4%B0%E0%A5%8D%E0%A4%B5%E0%A4%BE%E0%A4%9A%E0%A4%BF%E0%A4%A4_%E0%A4%B2%E0%A5%87%E0%A4%96");
+    final String hindi = fetchURL("http://hi.wikipedia.org/wiki/विकिपीडिया:निर्वाचित_लेख");
     System.out.println(BlockUtil.guessUnicodeBlock(hindi));
     System.out.println(StopWords.guess(hindi));
     
