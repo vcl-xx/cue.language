@@ -20,6 +20,8 @@ import java.util.LinkedList;
 import java.util.Locale;
 import java.util.NoSuchElementException;
 
+import cue.lang.stop.StopWords;
+
 /**
  * Construct with a {@link String}, some integer n, and a {@link Locale}; 
  * retrieve a sequence of {@link String}s, each of which has n words
@@ -66,6 +68,7 @@ public class NGramIterator extends IterableText
 	private final SentenceIterator sentenceIterator;
 	private final LinkedList<String> grams = new LinkedList<String>();
 	private final int n;
+	private final StopWords stopWords;
 
 	private String next;
 	private Iterator<String> currentWordIterator;
@@ -77,8 +80,15 @@ public class NGramIterator extends IterableText
 
 	public NGramIterator(final int n, final String text, final Locale locale)
 	{
+		this(n, text, locale, null);
+	}
+
+	public NGramIterator(final int n, final String text, final Locale locale,
+			final StopWords stopWords)
+	{
 		this.n = n;
 		this.sentenceIterator = new SentenceIterator(text, locale);
+		this.stopWords = stopWords;
 		loadNext();
 	}
 
@@ -123,11 +133,11 @@ public class NGramIterator extends IterableText
 						.iterator();
 				for (int i = 0; currentWordIterator.hasNext() && i < n - 1; i++)
 				{
-					grams.add(currentWordIterator.next());
+					maybeAddWord();
 				}
 			}
 			// now grams has n-1 words in it and currentWordIterator hasNext
-			grams.add(currentWordIterator.next());
+			maybeAddWord();
 		}
 		final StringBuilder sb = new StringBuilder();
 		for (final String gram : grams)
@@ -139,6 +149,19 @@ public class NGramIterator extends IterableText
 			sb.append(gram);
 		}
 		next = sb.toString();
+	}
+
+	private void maybeAddWord()
+	{
+		final String nextWord = currentWordIterator.next();
+		if (stopWords != null && stopWords.isStopWord(nextWord))
+		{
+			grams.clear();
+		}
+		else
+		{
+			grams.add(nextWord);
+		}
 	}
 
 	public static void main(final String[] args)
