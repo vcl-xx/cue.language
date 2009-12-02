@@ -62,7 +62,7 @@ public class SentenceIterator extends IterableText
 		{
 			throw new NoSuchElementException();
 		}
-		final String result = text.substring(start, end);
+		final String result = text.substring(start, end).replaceAll("\\s+", " ");
 		start = end;
 		end = breakIterator.next();
 		return result;
