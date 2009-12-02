@@ -110,6 +110,16 @@ Gutenberg e-text edition of Arthur Conan Doyle's
 
 ### Stop words
 
+    System.out.println(StopWords.English.isStopWord("the"));
+    System.out.println(StopWords.English.isStopWord("ThE"));
+    System.out.println(StopWords.Farsi.isStopWord("بیشتر"));
+    System.out.println(StopWords.English.isStopWord("borborygmus"));
+    for (final String word : new WordIterator(hound)) {
+        if (StopWords.English.isStopWord(word)) {
+            System.out.println(word);
+        }
+    }
+    
 ## Supported languages ##
 
 cue.language's stop word lists and language detection support the following
