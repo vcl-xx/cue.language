@@ -133,6 +133,11 @@ public class Counter<T>
 		return Collections.unmodifiableSet(items.keySet());
 	}
 
+	public List<T> keyList()
+	{
+		return getMostFrequent(items.size());
+	}
+
 	@Override
 	public String toString()
 	{
