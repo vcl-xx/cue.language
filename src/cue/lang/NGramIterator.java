@@ -163,13 +163,4 @@ public class NGramIterator extends IterableText
 			grams.add(nextWord);
 		}
 	}
-
-	public static void main(final String[] args)
-	{
-		final String lyric = "This happened once before. I came to your door. No reply.";
-		for (final String s : new NGramIterator(2, lyric))
-		{
-			System.out.println(s);
-		}
-	}
 }
