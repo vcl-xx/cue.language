@@ -144,6 +144,9 @@ a github pull request.
 If your text is small, you're likely to get near misses on the
 language guessing.
 
+The iterators all operate on Strings, not Readers, which makes this library
+unsuitable for use on texts too large to fit in memory.
+
 The SentenceIterator incorrectly breaks on "Mrs." and "Ms.", though it works
 just fine with "Mr.". I have reported this bug to Sun, since my
 SentenceIterator relies on the JDK BreakIterator.
@@ -152,14 +155,6 @@ SentenceIterator relies on the JDK BreakIterator.
 
 cue.language has exactly 0% test coverage. Fastidious programmers
 with extra time on their hands would find fertile ground here.
-
-## Planned ##
-
-The tokenizers all operate on Strings, which makes this library
-unsuitable for use on extremely large texts. I intend to modify
-the tokenizers to work on Readers, so that they can keep memory
-use small and constant. This would be easier in a language that
-supports generators/coroutines!
 
 ## License ##
 
