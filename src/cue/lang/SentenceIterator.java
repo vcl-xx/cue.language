@@ -18,6 +18,7 @@ package cue.lang;
 import java.text.BreakIterator;
 import java.util.Locale;
 import java.util.NoSuchElementException;
+import java.util.regex.Pattern;
 
 /**
  * Construct with a {@link String}; retrieve a sequence of {@link String}s, each of
@@ -47,8 +48,20 @@ public class SentenceIterator extends IterableText
 		this.text = text;
 		breakIterator = BreakIterator.getSentenceInstance(locale);
 		breakIterator.setText(text);
-		start = breakIterator.first();
-		end = breakIterator.next();
+		start = end = breakIterator.first();
+		advance();
+	}
+
+	private static final Pattern ABBREVS = Pattern.compile("(?:Mrs?|Ms|Dr|Rev)\\.\\s*$");
+
+	private void advance()
+	{
+		start = end;
+		while (hasNext()
+				&& ((end == start) || ABBREVS.matcher(text.substring(start, end)).find()))
+		{
+			end = breakIterator.next();
+		}
 	}
 
 	public void remove()
@@ -58,17 +71,16 @@ public class SentenceIterator extends IterableText
 
 	public String next()
 	{
-		if (end == BreakIterator.DONE)
+		if (!hasNext())
 		{
 			throw new NoSuchElementException();
 		}
 		final String result = text.substring(start, end).replaceAll("\\s+", " ");
-		start = end;
-		end = breakIterator.next();
+		advance();
 		return result;
 	}
 
-	public boolean hasNext()
+	public final boolean hasNext()
 	{
 		return end != BreakIterator.DONE;
 	}

@@ -147,10 +147,6 @@ language guessing.
 The iterators all operate on Strings, not Readers, which makes this library
 unsuitable for use on texts too large to fit in memory.
 
-The SentenceIterator incorrectly breaks on "Mrs." and "Ms.", though it works
-just fine with "Mr.". I have reported this bug to Sun, since my
-SentenceIterator relies on the JDK BreakIterator.
-
 ## Help needed! ##
 
 cue.language has exactly 0% test coverage. Fastidious programmers
